@@ -158,11 +158,21 @@ const Form = () => {
       {selectedMovie && (
         <div className='container'>
           <form>
-            <img
-              className='poster-image'
-              src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
+            <div className="image-row" style={{ display: 'flex', justifyContent: 'center' }}>
+              <img
+                className='poster-image'
+                src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
+                alt={`${selectedMovie.original_title} poster`}
+                style={{ height: '200px' }}
+              />
+              <img 
+              className='backdrop-image'
+              src={`https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`} 
               alt={`${selectedMovie.original_title} poster`}
-            />
+              style={{ height: '200px' }}
+              />
+            </div>
+           
             <div className='field'>
               <label>Title:</label>
               <input

@@ -29,6 +29,11 @@
   height: auto;
 }
 
+.backdrop-image {
+  width: 300px;
+  height: auto;
+}
+
 .field {
   margin-bottom: 15px;
 }
