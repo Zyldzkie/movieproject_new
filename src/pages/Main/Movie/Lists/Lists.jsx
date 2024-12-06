@@ -20,6 +20,8 @@ const Lists = () => {
     getMovies();
   }, []);
 
+  console.log(lists.map((movie) => console.log(movie)))
+
   const handleDelete = (id) => {
     const isConfirm = window.confirm('Are you sure you want to delete this movie?');
     if (isConfirm) {
@@ -78,24 +80,20 @@ const Lists = () => {
           <div className="movie-grid">
             {lists.map((movie) => (
               <div className="movie-card" key={movie.id}>
-                <div
-                  className="movie-background"
-                  style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
-                  }}
-                >
-                  {/* Background image for each movie */}
-                </div>
+                <img 
+                  src={`${movie.posterPath}`}
+                  alt={movie.title}
+                  className="movie-poster"
+                />
                 <div className="movie-info">
                   <h4>{movie.title}</h4>
                 </div>
 
-                {/* Small button in the top-right corner */}
                 <button
                   className="action-button"
-                  onClick={() => handleOpenModal(movie)} // Open modal with selected movie
+                  onClick={() => handleOpenModal(movie)}
                 >
-                  &#x270E; {/* Pencil icon for edit */}
+                  &#x270E;
                 </button>
 
                 {/* Modal for Delete / Edit */}
