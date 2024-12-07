@@ -8,8 +8,13 @@
   overflow: visible; 
   align-items: flex-start; 
   margin-top: 20px;
+  
 }
 
+
+.featured-movie-card{
+  background-color: #F8B319;
+}
 .left-side {
   display: flex;
   flex-direction: column;
@@ -25,10 +30,21 @@
   justify-content: space-between;
   margin-bottom: 20px;
   padding-top: 100px;
+  
+}
+
+.first-row .search-movies-card{
+  background-color: #161616;
+  color: #fff;
+}
+
+.first-row .featured-movie-card{
+  background-color: #F8B319;
+  color: #000;
 }
 
 .featured-movie-card {
-  background-color: #9675CE;
+  background-color: #F8B319;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -36,6 +52,7 @@
   margin-right: 20px;
   box-sizing: border-box; 
   overflow: hidden; 
+  
 }
 
 .search-movies-card {
@@ -56,8 +73,12 @@
   overflow-y: auto; 
 }
 
+.movie-list-card h3{
+  font-size: 1.5rem;
+}
+
 .movie-list-card {
-  background-color: #9675CE;
+  
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -65,8 +86,17 @@
   margin-right: 20px;
   box-sizing: border-box; 
   overflow: hidden; 
+  background-color: #F8B319;
 }
 
+.second-row .movie-list-card{
+  background-color: #161616;
+  color: #fff;
+}
+
+.second-row .favorites-container{
+  background-color: #F8B319;
+}
 
 .favorites-container {
   background-color: #9675CE;

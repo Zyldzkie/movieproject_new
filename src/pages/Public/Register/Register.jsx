@@ -53,6 +53,10 @@ function Register() {
     }
   };
 
+  const goBackLogin =() => {
+    navigate('/');
+  }
+
   const checkFields = () => {
     if (email && password && firstName && lastName && contactNo) {
       handleRegister();
@@ -191,6 +195,7 @@ function Register() {
               {status === 'loading' ? 'Registering...' : 'Register'}
             </button>
           </div>
+          <h4 className='goBackLogin'>Already Registered? <span className='loginclick' style={{color: '#F8B319'}} onClick={goBackLogin}>Go Back</span></h4>
         </form>
       </div>
     </div>

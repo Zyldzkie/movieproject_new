@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #1e1e2f;
+  background-color: #161616;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,7 @@ body {
 
 .image-placeholder {
   flex: 1;
-  background-color: #fa8072;
+  background-color: #F8B319;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #fa8072;
+  border-color: #F8B319;
   box-shadow: 0 0 0 2px rgba(250, 128, 114, 0.1);
 }
 
@@ -90,7 +90,7 @@ input:focus {
   transform: translateY(-68%);
   background: none;
   border: none;
-  color: #fa8072;
+  color: #F8B319;
   cursor: pointer;
   font-size: 12px;
   text-decoration: none;
@@ -98,7 +98,7 @@ input:focus {
 }
 
 .show-password-btn:hover {
-  color: #ff6347;
+  color: #de9d11;
 }
 
 .forgot-password {
@@ -107,7 +107,7 @@ input:focus {
 }
 
 .forgot-password a {
-  color: #fa8072;
+  color: #F8B319;
   text-decoration: none;
 }
 
@@ -116,7 +116,7 @@ input:focus {
 }
 
 .login-btn {
-  background-color: #fa8072;
+  background-color: #F8B319;
   color: white;
   border: none;
   padding: 12px 15px;
@@ -129,7 +129,7 @@ input:focus {
 }
 
 .login-btn:hover {
-  background-color: #ff6347;
+  background-color: #F8B319;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(250, 128, 114, 0.2);
 }
@@ -140,7 +140,7 @@ input:focus {
 }
 
 .register-container a {
-  color: #fa8072;
+  color: #F8B319;
   text-decoration: none;
 }
 

@@ -25,6 +25,7 @@ function Main() {
     <div className="main-layout">
       <div className="navigation">
         <ul>
+        <li className='logo' onClick={() => handleNavigation('/Main/Movies')}>MOVIES</li>
           <li onClick={() => handleNavigation('/Main/Movies')}>Home</li> {/* Replaced href with navigate */}
           <li onClick={() => handleNavigation('/main/favorites')}>Favorites</li> {/* Replaced href with navigate */}
           <li onClick={() => handleNavigation('/main/search')}>Search</li> {/* Replaced href with navigate */}

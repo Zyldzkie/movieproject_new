@@ -85,7 +85,7 @@ const Movie = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search for a movie..."
             />
-            <button>Search</button>
+            <button style={{backgroundColor:'#F8B319', marginTop:'10px'}}>Search</button>
           </div>
         </div>
 
