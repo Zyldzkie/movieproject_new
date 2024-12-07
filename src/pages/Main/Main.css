@@ -73,9 +73,10 @@ body {
 
 .content-layout {
   display: flex;
-  margin-left: 10px; 
+  
   padding: 0px;
   flex-grow: 1;
+  margin-top: 350px;
 }
 
 .main-content {
