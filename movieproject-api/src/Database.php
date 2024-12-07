@@ -8,6 +8,7 @@ class Database
         private string $password
     )
     {
+        
     }
     public function getConnection(): PDO
     {

@@ -52,7 +52,9 @@ function Login() {
       headers: { 'Access-Control-Allow-Origin': '*' },
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res.data.user);
+        localStorage.setItem("role", res.data.user.role);
+        localStorage.setItem("userId", res.data.user.userId);
         localStorage.setItem('accessToken', res.data.access_token);
         navigate('/main/movies');
         setStatus('idle');
