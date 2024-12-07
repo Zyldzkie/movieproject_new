@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #ffe3e3;
+  background-color: #1e1e2f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,8 +13,8 @@ body {
   width: 800px;
   height: 500px;
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(250, 128, 114, 0.15);
   overflow: hidden;
 }
 
@@ -57,25 +57,48 @@ label {
 
 input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #fa8072;
+  box-shadow: 0 0 0 2px rgba(250, 128, 114, 0.1);
 }
 
 .password-input-container {
   display: flex;
   align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.password-input-container input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .show-password-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-68%);
   background: none;
   border: none;
   color: #fa8072;
-  margin-left: 10px;
   cursor: pointer;
   font-size: 12px;
-  text-decoration: underline;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.show-password-btn:hover {
+  color: #ff6347;
 }
 
 .forgot-password {
@@ -96,15 +119,19 @@ input {
   background-color: #fa8072;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 12px 15px;
   width: 100%;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .login-btn:hover {
   background-color: #ff6347;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(250, 128, 114, 0.2);
 }
 
 .register-container {
