@@ -1,13 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200..1000&display=swap');
+
 .movie-layout {
   display: flex;
   flex-direction: row;
-  width: 120%;
+  width: 130%;
   min-height: 100vh; 
   padding: 20px;
   box-sizing: border-box;
   overflow: visible; 
   align-items: flex-start; 
   margin-top: 20px;
+}
+
+.movie-layout p, h3, h4{
+  color: #ffffff;
+  font-family: "Mulish", sans-serif;
 }
 
 .left-side {
@@ -28,7 +35,7 @@
 }
 
 .featured-movie-card {
-  background-color: #fff;
+  background-color: #222433;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -39,7 +46,7 @@
 }
 
 .search-movies-card {
-  background-color: #fff;
+  background-color: #222433;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -57,7 +64,7 @@
 }
 
 .movie-list-card {
-  background-color: #fff;
+  background-color: #222433;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -69,7 +76,7 @@
 
 
 .favorites-container {
-  background-color: #fff;
+  background-color: #222433;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
