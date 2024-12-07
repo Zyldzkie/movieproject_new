@@ -33,7 +33,9 @@ const Movie = () => {
         console.error('Error fetching movies:', error);
       }
     };
-
+    console.log("r: ", localStorage.getItem('role'));
+    console.log("uid: ", localStorage.getItem('userId'));
+    //console.log("at: ", localStorage.getItem('accessToken'));
     fetchMovies();
     // Set favorite movies
     setFavoriteMovies([
