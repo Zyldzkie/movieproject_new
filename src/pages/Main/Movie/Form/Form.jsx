@@ -14,11 +14,13 @@ const Form = () => {
   const [totalResults, setTotalResults] = useState(0);  
   const { movieId } = useParams();
   const navigate = useNavigate();
+  const [videos, setVideos] = useState([]);
+  const [newVideo, setNewVideo] = useState({ url: '', description: '' });
 
   useEffect(() => {
     if (movieId) {
       
-      axios.get(`/movies/${movieId}`, {
+      axios.get(`/admin/movies/${movieId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -65,43 +67,114 @@ const Form = () => {
 
   const handleSelectMovie = (movie) => {
     setSelectedMovie(movie);
+    
+    // Fetch videos from TMDB API
+    const options = {
+      method: 'GET',
+      url: `https://api.themoviedb.org/3/movie/${movie.id}/videos`,
+      params: {language: 'en-US'},
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2U5YzQxODc0ZjZmNDNlNzIwMTI1MDliOTk3ODA4NyIsIm5iZiI6MTczMzUwNDY5Ni40NDMsInN1YiI6IjY3NTMyZWI4MzdmMTg1NjIwMjA4OWJmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pFvghKo2N7OPMDYvuT3kr8oefTdNjRPCgchdjCrq3RA'
+      }
+    };
+
+    axios.request(options)
+      .then(response => {
+        // Transform TMDB video data to match your format
+        const transformedVideos = response.data.results.map(video => ({
+          url: `https://www.youtube.com/watch?v=${video.key}`,
+          description: video.name,
+          type: video.type,
+          dateCreated: new Date().toISOString()
+        }));
+        setVideos(transformedVideos);
+      })
+      .catch(error => {
+        console.error('Error fetching videos:', error);
+        setVideos([]);
+      });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const accessToken = localStorage.getItem('accessToken');
+    const userId = localStorage.getItem('userId');
+    
     if (!selectedMovie) {
       alert('Please search and select a movie.');
       return;
     }
 
-    const data = {
-      tmdbId: selectedMovie.id,
-      title: selectedMovie.title,
-      overview: selectedMovie.overview,
-      popularity: selectedMovie.popularity,
-      releaseDate: selectedMovie.release_date,
-      voteAverage: selectedMovie.vote_average,
-      backdropPath: `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`,
-      posterPath: `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`,
-      isFeatured: 0,
-    };
+    try {
+      // 1. Save/update the movie
+      const movieResponse = await axios({
+        method: movieId ? 'patch' : 'post',
+        url: movieId ? 
+          `/admin/movies/${movieId}` : 
+          `/admin/movies`,
+        data: {
+          tmdbId: selectedMovie.id,
+          title: selectedMovie.original_title,
+          overview: selectedMovie.overview,
+          popularity: selectedMovie.popularity,
+          releaseDate: selectedMovie.release_date,
+          voteAverage: selectedMovie.vote_average,
+          backdropPath: selectedMovie.backdrop_path ? 
+            `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}` : null,
+          posterPath: selectedMovie.poster_path ? 
+            `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}` : null,
+          isFeatured: 0,
+          userId: userId,
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
-    axios({
-      method: movieId ? 'patch' : 'post',
-      url: movieId ? `/movies/${movieId}` : '/movies',
-      data,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    .then((saveResponse) => {
-      alert('Movie saved successfully!');
+      // 2. Get the movie ID
+      const savedMovieId = movieId || movieResponse.data.id;
+
+      // 3. Save videos
+      const videoPromises = videos.map(video => {
+        const videoData = {
+          userId: userId,
+          movieId: savedMovieId,
+          url: video.url,
+          description: video.description,
+          dateCreated: new Date().toISOString(),
+          dateUpdated: new Date().toISOString()
+        };
+
+        console.log('Saving video data:', videoData);
+
+        return axios({
+          method: 'post',
+          url: `/admin/videos`,
+          data: videoData,
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+      });
+
+      const videoResults = await Promise.all(videoPromises);
+      console.log('Videos saved successfully:', videoResults);
+
+      alert('Movie and videos saved successfully!');
       navigate('/main/movies');
-    })
-    .catch((error) => {
-      alert('Error! Failed to save movie.');
-      console.error(error);
-    });
+    } catch (error) {
+      console.error('Save error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        endpoint: error.config?.url,
+        method: error.config?.method,
+        data: error.config?.data
+      });
+      alert(`Error saving: ${error.response?.data?.message || error.message}`);
+    }
   };
 
   const handleNextPage = () => {
@@ -120,6 +193,18 @@ const Form = () => {
     setRowsPerPage(newRowsPerPage);
     setTotalPages(Math.ceil(totalResults / newRowsPerPage)); 
     setCurrentPage(1); 
+  };
+
+  const handleRemoveVideo = (index) => {
+    const updatedVideos = videos.filter((_, i) => i !== index);
+    setVideos(updatedVideos);
+  };
+
+  const handleAddVideo = () => {
+    if (newVideo.url && newVideo.description) {
+      setVideos([...videos, newVideo]);
+      setNewVideo({ url: '', description: '' });
+    }
   };
 
   useEffect(() => {
@@ -213,6 +298,40 @@ const Form = () => {
                 value={selectedMovie.vote_average}
                 onChange={(e) => setSelectedMovie({ ...selectedMovie, vote_average: e.target.value })}
               />
+            </div>
+            <div className='videos-section'>
+              <h3>Videos from TMDB</h3>
+              
+              {/* Video List */}
+              {videos.map((video, index) => (
+                <div key={index} className='video-item'>
+                  <div>
+                    <strong>{video.type}</strong>
+                    <a href={video.url} target="_blank" rel="noopener noreferrer">
+                      {video.description}
+                    </a>
+                  </div>
+                  <button type='button' onClick={() => handleRemoveVideo(index)}>Remove</button>
+                </div>
+              ))}
+
+              {/* Add Custom Video */}
+              <div className='add-video'>
+                <h4>Add Custom Video</h4>
+                <input
+                  type='text'
+                  value={newVideo.url}
+                  onChange={(e) => setNewVideo({ ...newVideo, url: e.target.value })}
+                  placeholder="New Video URL"
+                />
+                <input
+                  type='text'
+                  value={newVideo.description}
+                  onChange={(e) => setNewVideo({ ...newVideo, description: e.target.value })}
+                  placeholder="New Video Description"
+                />
+                <button type='button' onClick={handleAddVideo}>Add Video</button>
+              </div>
             </div>
             <button type='button' onClick={handleSave}>Save</button>
           </form>
