@@ -14,13 +14,13 @@ const Lists = () => {
     axios.get('/movies').then((response) => {
       setLists(response.data);
     });
+
   };
 
   useEffect(() => {
     getMovies();
   }, []);
 
-  console.log(lists.map((movie) => console.log(movie)))
 
   const handleDelete = (id) => {
     const isConfirm = window.confirm('Are you sure you want to delete this movie?');

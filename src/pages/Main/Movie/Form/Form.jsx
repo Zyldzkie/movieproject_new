@@ -17,6 +17,7 @@ const Form = () => {
 
   useEffect(() => {
     if (movieId) {
+      
       axios.get(`/movies/${movieId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

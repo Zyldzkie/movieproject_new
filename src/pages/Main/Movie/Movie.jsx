@@ -5,32 +5,34 @@ import { Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 const Movie = () => {
-  const [movies, setMovies] = useState(null)
+  const [movies, setMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState(null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-
 
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const getMovies = () => {
-    axios.get('/movies').then((response) => {
-      setMovies(response.data);
-    });
-  };
-
-
-
-
   useEffect(() => {
-    setFeaturedMovie({
-      title: "Inception",
-      overview: "A mind-bending thriller that explores the concept of dreams within dreams.",
-      release_date: "2010-07-16",
-      vote_average: 8.8,
-      poster_path: "https://image.tmdb.org/t/p/original/r6Prq5XYB95DOZYYLRzITrOj3Te.jpg",
-    });
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get('/movies');
+        const data = response.data;
+        setMovies(data);
+        
+        const featured = data.find(movie => movie.isFeatured === true || movie.isFeatured === 1);
+        if (featured) {
+          setFeaturedMovie(featured);
+        } else {
 
+          console.log('No featured movie found. Available movies:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
+
+    fetchMovies();
+    // Set favorite movies
     setFavoriteMovies([
       { id: 1, title: "The Dark Knight", poster_path: "https://image.tmdb.org/t/p/original/cz8MjCVSPOq7SKtTRp1APeO6zWh.jpg" },
       { id: 2, title: "The Matrix", poster_path: "https://image.tmdb.org/t/p/original/qxHcqkbjvjaD4rTp0Y1ZZCwIj6i.jpg" },
@@ -38,7 +40,9 @@ const Movie = () => {
   }, []);
 
   const handleEditClick = () => {
-    navigate(`/main/movies/form/${featuredMovie.title}`);
+    console.log('Featured Movie:', featuredMovie);
+    console.log('Navigating to ID:', featuredMovie.id);
+    navigate(`/main/movies/form/${featuredMovie.id}`);
   };
 
   return (
