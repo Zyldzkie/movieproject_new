@@ -19,12 +19,15 @@ const Movie = () => {
         const data = response.data;
         setMovies(data);
         
-        const featured = data.find(movie => movie.isFeatured === true || movie.isFeatured === 1);
-        if (featured) {
-          setFeaturedMovie(featured);
+        // Find all featured movies
+        const featuredMovies = data.filter(movie => movie.isFeatured === true || movie.isFeatured === 1);
+        
+        if (featuredMovies.length > 0) {
+          // Randomly select one from the featured movies
+          const randomIndex = Math.floor(Math.random() * featuredMovies.length);
+          setFeaturedMovie(featuredMovies[randomIndex]);
         } else {
-
-          console.log('No featured movie found. Available movies:', data);
+          console.log('No featured movies found. Available movies:', data);
         }
       } catch (error) {
         console.error('Error fetching movies:', error);
