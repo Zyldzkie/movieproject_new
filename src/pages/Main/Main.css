@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200..1000&display=swap');
-
 body {
-  background-color: #1d1c2a; 
+  background-color: #f1f1f1; 
   margin: 0;
   font-family: Arial, sans-serif;
   height: 100vh; 
@@ -14,7 +12,7 @@ body {
 }
 
 .navigation {
-  background-color: #222433;
+  background-color: #161616;
   width: 220px;
   height: 100vh;
   position: fixed;
@@ -29,8 +27,9 @@ body {
   list-style: none;
   padding: 0;
   margin: 20px 0;
-  color: #7c88a5;
-  font-family: "Mulish", sans-serif;
+  color: #F8B319;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
   flex-grow: 1;
 }
 
@@ -42,30 +41,30 @@ body {
 
 .navigation ul li.active,
 .navigation ul li:hover {
-  background: rgba(95, 134, 243, 0.2);
+  background: #ca8e0c;
 }
 
 .navigation ul li a {
   text-decoration: none;
-  color: rgb(95, 134, 243);
+  color: #fff;
   transition: color 0.3s ease;
 }
 
 .navigation ul li:hover,
 .navigation ul li:hover a {
-  color: #00a3ff !important;
+  color: #fff !important;
 }
 
 .navigation ul li.logout {
   cursor: pointer;
   font-weight: bold;
-  color: rgb(197, 18, 18);
+  color: #F8B319;
   margin-top: auto;
   position: absolute;
   bottom: 20px;
   width: 100%;
   box-sizing: border-box;
-  transition: color 0.3s ease;
+  
 }
 
 .navigation ul li.logout:hover {
@@ -82,4 +81,9 @@ body {
 .main-content {
   flex-grow: 1;
   margin-right: 100px;
+}
+
+.logo{
+  font-weight: 600;
+  font-size: 30px;
 }
