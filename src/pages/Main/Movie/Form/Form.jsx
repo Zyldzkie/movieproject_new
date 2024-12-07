@@ -221,10 +221,10 @@ const Form = () => {
       {!movieId && (
         <>
           <div className='search-container'>
-            <label>Search Movie:</label>
+            <label className='searchLabel'>Search Movie:</label>
             <input type='text' onChange={(event) => setQuery(event.target.value)} />
-            <button type='button' onClick={handleSearch}>Search</button>
-            <div className='searched-movie' style={{ maxHeight: '300px', overflowY: 'scroll' }}>
+            <button type='button' className='searchBTN' onClick={handleSearch}>Search</button>
+            <div className='searched-movie' style={{ maxHeight: '300px'}}>
               {searchedMovieList.slice(0, rowsPerPage).map((movie) => (
                 <p key={movie.id} onClick={() => handleSelectMovie(movie)}>
                   {movie.original_title}
@@ -263,7 +263,7 @@ const Form = () => {
             </div>
            
             <div className='field'>
-              <label>Title:</label>
+              <label style={{color:'#fff'}}>Title:</label>
               <input
                 type='text'
                 value={selectedMovie.original_title}
@@ -271,15 +271,16 @@ const Form = () => {
               />
             </div>
             <div className='field'>
-              <label>Overview:</label>
+              <label style={{color:'#fff'}}>Overview:</label>
               <textarea
+              style={{width:'600px'}}
                 rows={10}
                 value={selectedMovie.overview}
                 onChange={(e) => setSelectedMovie({ ...selectedMovie, overview: e.target.value })}
               />
             </div>
             <div className='field'>
-              <label>Popularity:</label>
+              <label style={{color:'#fff'}}>Popularity:</label>
               <input
                 type='text'
                 value={selectedMovie.popularity}
@@ -287,7 +288,7 @@ const Form = () => {
               />
             </div>
             <div className='field'>
-              <label>Release Date:</label>
+              <label style={{color:'#fff'}}>Release Date:</label>
               <input
                 type='text'
                 value={selectedMovie.release_date}
@@ -295,7 +296,7 @@ const Form = () => {
               />
             </div>
             <div className='field'>
-              <label>Vote Average:</label>
+              <label style={{color:'#fff'}}>Vote Average:</label>
               <input
                 type='text'
                 value={selectedMovie.vote_average}

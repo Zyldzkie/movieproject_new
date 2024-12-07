@@ -73,6 +73,11 @@
   overflow-y: auto; 
 }
 
+.edit-button{
+  background-color: #161616;
+  color: #fff;
+}
+
 .movie-list-card h3{
   font-size: 1.5rem;
 }
