@@ -9,10 +9,17 @@
   margin-bottom: 10px;
   width: 300px;
 }
+.searchBTN{
+  width: 100px;
+  margin-bottom: 10px;
+}
 
 .searched-movie {
   max-height: 200px;
   overflow-y: auto;
+  border: 2px solid #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .searched-movie p {
@@ -44,15 +51,23 @@
   padding: 10px;
 }
 
+.searchLabel{
+  color: #fff;
+}
+
 button {
   padding: 10px;
-  background-color: #3498db;
+  background-color: #F8B319;
   color: white;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  width: 100px;
   border: none;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #d5960d;
 }
 

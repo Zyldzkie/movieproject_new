@@ -31,7 +31,8 @@
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
+  background-color: #fff;
+  color: #222433;
 }
 
 .movie-card:hover {
@@ -40,7 +41,7 @@
 }
 
 .movie-poster {
-  width: 100%;
+  width: 160px;
   height: 200px;
   border-radius: 4px;
   margin-bottom: 8px;
@@ -55,6 +56,7 @@
 .movie-info h4 {
   margin: 8px 0;
   font-size: 1rem;
+  color: #000;
 }
 
 .action-buttons {
