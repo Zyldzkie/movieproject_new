@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
+  const userRole = localStorage.getItem('role') || 'user'; // Fetch the user's role
   const navigate = useNavigate();
   const [lists, setLists] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -13,16 +14,13 @@ const Lists = () => {
   const getMovies = () => {
     axios.get('/movies').then((response) => {
       setLists(response.data);
-
       console.log(response.data);
     });
-
   };
 
   useEffect(() => {
     getMovies();
   }, []);
-
 
   const handleDelete = (id) => {
     const isConfirm = window.confirm('Are you sure you want to delete this movie?');
@@ -70,9 +68,11 @@ const Lists = () => {
   return (
     <div className="lists-container">
       <div className="create-container">
-        <button type="button" onClick={() => navigate('/main/movies/form')}>
-          Create New Movie
-        </button>
+        {userRole === 'admin' && ( // Only show the "Create New Movie" button for admins
+          <button type="button" onClick={() => navigate('/main/movies/form')}>
+            Create New Movie
+          </button>
+        )}
       </div>
 
       <div className="movie-list-container">
@@ -91,12 +91,14 @@ const Lists = () => {
                   <h4>{movie.title}</h4>
                 </div>
 
-                <button
-                  className="action-button"
-                  onClick={() => handleOpenModal(movie)}
-                >
-                  &#x270E;
-                </button>
+                {userRole === 'admin' && ( // Only show action buttons for admins
+                  <button
+                    className="action-button"
+                    onClick={() => handleOpenModal(movie)}
+                  >
+                    &#x270E;
+                  </button>
+                )}
 
                 {showModal && selectedMovie === movie && (
                   <div className="modal">
