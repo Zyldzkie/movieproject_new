@@ -30,10 +30,10 @@ const Form = () => {
           original_title: response.data.title,
           overview: response.data.overview,
           popularity: response.data.popularity,
-          poster_path: response.data.posterPath,
+          poster_path: `https://image.tmdb.org/t/p/original/${response.data.posterPath}`,
           release_date: response.data.releaseDate,
           vote_average: response.data.voteAverage,
-          backdrop_path: response.data.backdropPath,
+          backdrop_path: `https://image.tmdb.org/t/p/original/${response.data.backdropPath}`,
         };
         setSelectedMovie(movieData);
       })
@@ -121,8 +121,8 @@ const Form = () => {
           popularity: selectedMovie.popularity,
           releaseDate: selectedMovie.release_date,
           voteAverage: selectedMovie.vote_average,
-          backdropPath: selectedMovie.backdrop_path,
-          posterPath: selectedMovie.poster_path,
+          backdropPath: 'https://image.tmdb.org/t/p/original' + selectedMovie.backdrop_path,
+          posterPath: 'https://image.tmdb.org/t/p/original' + selectedMovie.poster_path,
           isFeatured: 0,
           userId: userId,
         },
@@ -208,6 +208,8 @@ const Form = () => {
     }
   };
 
+  console.log(selectedMovie)
+
   useEffect(() => {
     if (query) handleSearch();
   }, [currentPage, rowsPerPage]);
@@ -248,13 +250,13 @@ const Form = () => {
             <div className="image-row" style={{ display: 'flex', justifyContent: 'center' }}>
               <img
                 className='poster-image'
-                src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
+                src={selectedMovie.posterPath}
                 alt={`${selectedMovie.original_title} poster`}
                 style={{ height: '200px' }}
               />
               <img 
               className='backdrop-image'
-              src={`https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`} 
+              src={selectedMovie.backdropPath} 
               alt={`${selectedMovie.original_title} poster`}
               style={{ height: '200px' }}
               />
