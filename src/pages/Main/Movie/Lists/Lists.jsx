@@ -7,12 +7,14 @@ const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   const [lists, setLists] = useState([]);
-  const [showModal, setShowModal] = useState(false); // To control modal visibility
-  const [selectedMovie, setSelectedMovie] = useState(null); // Store selected movie for delete/edit
+  const [showModal, setShowModal] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null); 
 
   const getMovies = () => {
     axios.get('/movies').then((response) => {
       setLists(response.data);
+
+      console.log(response.data);
     });
 
   };
@@ -42,19 +44,19 @@ const Lists = () => {
   };
 
   const handleOpenModal = (movie) => {
-    setSelectedMovie(movie); // Set the movie to delete or edit
-    setShowModal(true); // Show modal
+    setSelectedMovie(movie); 
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); // Close modal
+    setShowModal(false); 
     setSelectedMovie(null);
   };
 
   const handleConfirmDelete = () => {
     if (selectedMovie) {
-      handleDelete(selectedMovie.id); // Call delete function
-      handleCloseModal(); // Close modal after deletion
+      handleDelete(selectedMovie.id); 
+      handleCloseModal(); 
     }
   };
 
@@ -96,7 +98,6 @@ const Lists = () => {
                   &#x270E;
                 </button>
 
-                {/* Modal for Delete / Edit */}
                 {showModal && selectedMovie === movie && (
                   <div className="modal">
                     <div className="modal-content">

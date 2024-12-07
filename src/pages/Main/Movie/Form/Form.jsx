@@ -19,26 +19,30 @@ const Form = () => {
 
   useEffect(() => {
     if (movieId) {
-      
-      axios.get(`/admin/movies/${movieId}`, {
+      axios.get(`/movies/${movieId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       })
       .then((response) => {
         const movieData = {
-          id: response.data.tmdbId,
+          id: response.data.id,
           original_title: response.data.title,
           overview: response.data.overview,
           popularity: response.data.popularity,
           poster_path: response.data.posterPath,
           release_date: response.data.releaseDate,
           vote_average: response.data.voteAverage,
+          backdrop_path: response.data.backdropPath,
         };
         setSelectedMovie(movieData);
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Load error details:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status
+        });
         alert('Error! Failed to load movie details.');
       });
     }
@@ -106,23 +110,19 @@ const Form = () => {
     }
 
     try {
-      // 1. Save/update the movie
+  
       const movieResponse = await axios({
         method: movieId ? 'patch' : 'post',
-        url: movieId ? 
-          `/admin/movies/${movieId}` : 
-          `/admin/movies`,
+        url: movieId ? `/movies/${movieId}` : `/movies`,
         data: {
-          tmdbId: selectedMovie.id,
+          tmdbId: selectedMovie.id,  
           title: selectedMovie.original_title,
           overview: selectedMovie.overview,
           popularity: selectedMovie.popularity,
           releaseDate: selectedMovie.release_date,
           voteAverage: selectedMovie.vote_average,
-          backdropPath: selectedMovie.backdrop_path ? 
-            `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}` : null,
-          posterPath: selectedMovie.poster_path ? 
-            `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}` : null,
+          backdropPath: selectedMovie.backdrop_path,
+          posterPath: selectedMovie.poster_path,
           isFeatured: 0,
           userId: userId,
         },
@@ -131,15 +131,16 @@ const Form = () => {
           'Content-Type': 'application/json',
         },
       });
+      
 
-      // 2. Get the movie ID
-      const savedMovieId = movieId || movieResponse.data.id;
 
-      // 3. Save videos
+      const savedMovieId = movieResponse.data.id; 
+      console.log(savedMovieId)
+
       const videoPromises = videos.map(video => {
         const videoData = {
           userId: userId,
-          movieId: savedMovieId,
+          movieId: savedMovieId, 
           url: video.url,
           description: video.description,
           dateCreated: new Date().toISOString(),
