@@ -85,8 +85,7 @@ input:focus {
 
 .show-password-btn {
   position: absolute;
-  right: 12px;
-  top: 50%;
+  top: 30%;
   transform: translateY(-68%);
   background: none;
   border: none;
@@ -94,12 +93,10 @@ input:focus {
   cursor: pointer;
   font-size: 12px;
   text-decoration: none;
-  padding: 5px;
+  
+  margin-left: 110px;
 }
 
-.show-password-btn:hover {
-  color: #de9d11;
-}
 
 .forgot-password {
   align-self: flex-end;
